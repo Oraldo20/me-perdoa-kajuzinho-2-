@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A Reconciliação: Kajuzinho e Duzinho</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            touch-action: manipulation;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        /* Tela de Início */
+        .start-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #0f3460 0%, #1a1a2e 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .start-screen.hidden {
+            display: none;
+        }
+        
+        .game-title {
+            font-size: 3.5rem;
+            color: #f72585;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(247, 37, 133, 0.5);
+            font-family: 'Arial Black', sans-serif;
+            letter-spacing: 2px;
+        }
+        
+        .game-subtitle {
+            font-size: 1.8rem;
+            color: #4cc9f0;
+            margin-bottom: 40px;
+            text-shadow: 0 0 8px rgba(76, 201, 240, 0.5);
+        }
+        
+        .pixel-art {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .pixel-character {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            border: 4px solid white;
+        }
+        
+        .pixel-kajuzinho {
+            background-color: #f72585;
+            box-shadow: 0 0 15px #f72585;
+        }
+        
+        .pixel-duzinho {
+            background-color: #4361ee;
+            box-shadow: 0 0 15px #4361ee;
+        }
+        
+        .start-button {
+            background-color: #f72585;
+            border: none;
+            color: white;
+            padding: 20px 50px;
+            border-radius: 10px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s;
+            border: 3px solid white;
+            box-shadow: 0 0 15px rgba(247, 37, 133, 0.7);
+        }
+        
+        .start-button:hover {
+            transform: scale(1.05);
+            background-color: #e11575;
+        }
+        
+        .start-button:active {
+            transform: scale(0.95);
+        }
+        
+        .start-instruction {
+            margin-top: 30px;
+            color: #ccc;
+            font-size: 1.1rem;
+            max-width: 400px;
+        }
+        
+        /* Resto do CSS permanece igual até o final */
+        .game-header {
+            text-align: center;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid #4cc9f0;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: #4cc9f0;
+        }
+        
+        .game-subtitle-small {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .game-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-container {
+            flex: 3;
+            position: relative;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        
+        .map {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background-color: #e8e8e8;
+        }
+        
+        .floor {
+            position: absolute;
+            background-color: #f5f5f5;
+        }
+        
+        .mall-floor {
+            width: 90%;
+            height: 85%;
+            top: 10%;
+            left: 5%;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .store {
+            position: absolute;
+            background-color: #d4a574;
+            border: 2px solid #8b7355;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5d432c;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        .bench {
+            position: absolute;
+            background-color: #8b7355;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .bench::before, .bench::after {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 15px;
+            background-color: #5d432c;
+            top: -15px;
+        }
+        
+        .bench::before {
+            left: 5px;
+        }
+        
+        .bench::after {
+            right: 5px;
+        }
+        
+        .tree {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #2e7d32;
+            border-radius: 50%;
+        }
+        
+        .tree::after {
+            content: "";
+            position: absolute;
+            width: 5px;
+            height: 15px;
+            background-color: #5d4037;
+            bottom: -15px;
+            left: 10px;
+        }
+        
+        .fountain {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #4fc3f7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .character {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 20;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border: 2px solid white;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+        
+        .kajuzinho {
+            background-color: #f72585;
+            top: 60%;
+            left: 20%;
+            box-shadow: 0 0 10px #f72585;
+        }
+        
+        .kajuzinho::after {
+            content: "🎀";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 0.9rem;
+            transform: rotate(15deg);
+        }
+        
+        .duzinho {
+            background-color: #4361ee;
+            top: 60%;
+            left: 70%;
+            box-shadow: 0 0 10px #4361ee;
+        }
+        
+        .popcorn {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background-color: #FFD700;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 0 8px #FFD700;
+            z-index: 15;
+            border: 2px solid #FFA500;
+            animation: pulse 2s infinite;
+        }
+        
+        .chocolate {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #6d4c41;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            z-index: 15;
+            border: 2px solid #5d4037;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .controls-container {
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .d-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 5px;
+            width: 150px;
+            height: 150px;
+            position: relative;
+        }
+        
+        .d-pad-center {
+            grid-column: 2;
+            grid-row: 2;
+            background-color: #333;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+        }
+        
+        .control-btn {
+            background-color: #4361ee;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.1s;
+            border-radius: 10px;
+        }
+        
+        .control-btn:active {
+            transform: scale(0.95);
+            background-color: #3a56d4;
+        }
+        
+        #up {
+            grid-column: 2;
+            grid-row: 1;
+        }
+        
+        #down {
+            grid-column: 2;
+            grid-row: 3;
+        }
+        
+        #left {
+            grid-column: 1;
+            grid-row: 2;
+        }
+        
+        #right {
+            grid-column: 3;
+            grid-row: 2;
+        }
+        
+        .dialogue-container {
+            flex: 2;
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 20px;
+            overflow-y: auto;
+            border-top: 2px solid #f72585;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+        }
+        
+        .dialogue-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        
+        .character-name {
+            color: #4cc9f0;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+            display: block;
+        }
+        
+        .kajuzinho-name {
+            color: #f72585;
+        }
+        
+        .duzinho-name {
+            color: #4361ee;
+        }
+        
+        .dialogue-message {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid;
+        }
+        
+        .kajuzinho-message {
+            border-left-color: #f72585;
+        }
+        
+        .duzinho-message {
+            border-left-color: #4361ee;
+        }
+        
+        .dialogue-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .dialogue-btn {
+            background-color: #4361ee;
+            border: none;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+        
+        .dialogue-btn:hover {
+            background-color: #3a56d4;
+        }
+        
+        .action-btn {
+            background-color: #f72585;
+            border: none;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        
+        .action-btn:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+        
+        .action-btn:not(:disabled):active {
+            transform: scale(0.98);
+        }
+        
+        .continue-btn {
+            background-color: #4cc9f0;
+            border: none;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center;
+            width: 100%;
+            font-weight: bold;
+        }
+        
+        .inventory {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #4cc9f0;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .inventory-title {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: #4cc9f0;
+        }
+        
+        .inventory-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .item-icon {
+            width: 30px;
+            height: 30px;
+            background-color: #FFD700;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .chocolate-icon {
+            background-color: #6d4c41;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .game-over {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .game-over.show {
+            display: flex;
+        }
+        
+        .game-over h2 {
+            color: #4cc9f0;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .game-over p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+        
+        .game-over-message {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid #f72585;
+        }
+        
+        .restart-btn {
+            background-color: #f72585;
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+        
+        .restart-btn:active {
+            transform: scale(0.98);
+        }
+        
+        @media (max-width: 500px) {
+            .game-title {
+                font-size: 2.5rem;
+            }
+            
+            .game-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .start-button {
+                padding: 15px 40px;
+                font-size: 1.5rem;
+            }
+            
+            .controls-container {
+                padding: 10px;
+            }
+            
+            .d-pad {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .dialogue-container {
+                padding: 15px;
+                min-height: 180px;
+            }
+            
+            .dialogue-text {
+                font-size: 1rem;
+            }
+            
+            .game-over {
+                padding: 15px;
+            }
+            
+            .game-over h2 {
+                font-size: 1.8rem;
+            }
+            
+            .game-over p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Tela de Início -->
+    <div class="start-screen" id="start-screen">
+        <div class="game-title">A RECONCILIAÇÃO</div>
+        <div class="game-subtitle">Kajuzinho & Duzinho</div>
+        
+        <div class="pixel-art">
+            <div class="pixel-character pixel-kajuzinho">K</div>
+            <div class="pixel-character pixel-duzinho">D</div>
+        </div>
+        
+        <button class="start-button" id="start-button">INICIAR JOGO</button>
+        
+        <div class="start-instruction">
+            <p>Use os controles para mover a Kajuzinho pelo shopping</p>
+            <p>Encontre o Duzinho para conversar e reconstruir sua relação</p>
+        </div>
+    </div>
+    
+    <!-- Jogo Principal -->
+    <div class="game-container hidden" id="game-container">
+        <div class="game-header">
+            <h1>A Reconciliação</h1>
+            <p class="game-subtitle-small">Kajuzinho e Duzinho: Um Encontro no Shopping</p>
+        </div>
+        
+        <div class="game-area">
+            <div class="map-container">
+                <div class="map">
+                    <!-- Piso do shopping -->
+                    <div class="floor mall-floor"></div>
+                    
+                    <!-- Lojas -->
+                    <div class="store" style="width: 80px; height: 60px; top: 15%; left: 10%;">Loja de<br>Doces</div>
+                    <div class="store" style="width: 70px; height: 60px; top: 15%; left: 35%;">Cinema</div>
+                    <div class="store" style="width: 80px; height: 60px; top: 15%; left: 65%;">Loja de<br>Presentes</div>
+                    
+                    <!-- Bancos -->
+                    <div class="bench" style="width: 60px; height: 15px; top: 40%; left: 20%;"></div>
+                    <div class="bench" style="width: 60px; height: 15px; top: 40%; left: 60%;"></div>
+                    
+                    <!-- Árvores decorativas -->
+                    <div class="tree" style="top: 30%; left: 45%;"></div>
+                    <div class="tree" style="top: 30%; left: 80%;"></div>
+                    
+                    <!-- Fonte -->
+                    <div class="fountain" style="top: 75%; left: 45%;">⛲</div>
+                    
+                    <!-- Personagens e itens -->
+                    <div class="character kajuzinho">K</div>
+                    <div class="character duzinho">D</div>
+                    <div class="popcorn" id="popcorn" style="top: 25%; left: 12%; display: none;">🍿</div>
+                    <div class="chocolate" id="chocolate" style="top: 65%; left: 72%; display: none;">🍫</div>
+                    
+                    <div class="inventory">
+                        <div class="inventory-title">Inventário</div>
+                        <div id="inventory-items">
+                            <div class="inventory-item">
+                                <div class="item-icon" id="inventory-icon">?</div>
+                                <span id="inventory-text">Vazio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dialogue-container">
+                <div class="dialogue-text" id="dialogue-text">
+                    <!-- Diálogos serão inseridos aqui dinamicamente -->
+                </div>
+                
+                <div class="dialogue-options">
+                    <button class="dialogue-btn hidden" id="option1">Opção 1</button>
+                    <button class="dialogue-btn hidden" id="option2">Opção 2</button>
+                    <button class="dialogue-btn hidden" id="option3">Opção 3</button>
+                    <button class="continue-btn hidden" id="continue-btn">Continuar</button>
+                    <button class="action-btn" id="action-btn" disabled>Encontre o Duzinho</button>
+                </div>
+            </div>
+            
+            <div class="controls-container">
+                <div class="d-pad">
+                    <button class="control-btn" id="up">↑</button>
+                    <button class="control-btn" id="left">←</button>
+                    <div class="d-pad-center">•</div>
+                    <button class="control-btn" id="right">→</button>
+                    <button class="control-btn" id="down">↓</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-over" id="game-over">
+            <h2>Final do Jogo</h2>
+            <div class="game-over-message" id="ending-message">
+                <p>Kajuzinho entrega o Tic Tac de Pipoca para Duzinho, simbolizando seu desejo de reconstruir o que foi quebrado.</p>
+                <br>
+                <p><span class="duzinho-name">Duzinho</span> sorri emocionado: "Obrigado, Kajuzinho. Este presente significa mais do que você imagina."</p>
+                <br>
+                <p><span class="kajuzinho-name">Kajuzinho</span> responde: "Eu ainda estou com medo, mas quero tentar. Você está certo, não podemos desistir facilmente."</p>
+            </div>
+            <p style="color: #4cc9f0; font-weight: bold;">Às vezes, o perdão é a jornada mais difícil, mas também a mais recompensadora.</p>
+            <button class="restart-btn" id="restart-btn">Jogar Novamente</button>
+        </div>
+    </div>
+
+    <script>
+        // Elementos do DOM
+        const startScreen = document.getElementById('start-screen');
+        const gameContainer = document.getElementById('game-container');
+        const startButton = document.getElementById('start-button');
+        const kajuzinho = document.querySelector('.kajuzinho');
+        const duzinho = document.querySelector('.duzinho');
+        const popcorn = document.getElementById('popcorn');
+        const chocolate = document.getElementById('chocolate');
+        const dialogueText = document.getElementById('dialogue-text');
+        const option1 = document.getElementById('option1');
+        const option2 = document.getElementById('option2');
+        const option3 = document.getElementById('option3');
+        const continueBtn = document.getElementById('continue-btn');
+        const actionBtn = document.getElementById('action-btn');
+        const inventoryItems = document.getElementById('inventory-items');
+        const gameOverScreen = document.getElementById('game-over');
+        const endingMessage = document.getElementById('ending-message');
+        const restartBtn = document.getElementById('restart-btn');
+        
+        // Controles
+        const upBtn = document.getElementById('up');
+        const downBtn = document.getElementById('down');
+        const leftBtn = document.getElementById('left');
+        const rightBtn = document.getElementById('right');
+        
+        // Estado do jogo - MANTENDO SEUS DIÁLOGOS
+        let gameState = {
+            kajuzinhoPosition: { x: 20, y: 60 },
+            duzinhoPosition: { x: 70, y: 60 },
+            popcornPosition: { x: 12, y: 25 },
+            chocolatePosition: { x: 72, y: 65 },
+            inventory: [],
+            talkingToDuzinho: false,
+            dialogueStep: 0,
+            gameCompleted: false,
+            conversationStarted: false,
+            reconciliationPoints: 0,
+            popcornMissionActive: false,
+            chocolateGiven: false,
+            popcornDialogueTriggered: false,
+            conversationCompleted: false,
+            popcornCollected: false,
+            popcornDeliveryStep: 0  // NOVO: para controlar os passos da entrega
+        };
+        
+        // SEUS DIÁLOGOS ORIGINAIS MANTIDOS
+        const dialogues = [
+            {
+                character: "Duzinho",
+                text: "Oi, Kajuzinho... Obrigado por ter aceitado me encontrar. Eu sei que não mereço essa chance, mas estou muito grato que você veio.",
+                showOptions: false
+            },
+            {
+                character: "Kajuzinho",
+                text: "Oi... eu também senti falta de você. Mas a verdade é que ainda estou muito magoada, Duzinho.",
+                options: [
+                    "O que você fez me machucou profundamente.",
+                    "Eu queria poder confiar em você de novo.",
+                    "Não sei por onde começar essa conversa..."
+                ],
+                responses: [
+                    "Eu sei, Kajuzinho. Eu falhei com você e me arrependo todos os dias. Você merecia muito mais do que isso.",
+                    "Eu entendo se você não conseguir confiar ainda. Vou trabalhar para reconquistar sua confiança, no seu tempo.",
+                    "Podemos começar do zero. Eu estou aqui para ouvir tudo o que você tem a dizer, sem pressa."
+                ],
+                points: [1, 2, 1]
+            },
+            {
+                character: "Duzinho",
+                text: "Eu tenho pensado muito no que aconteceu, Kajuzinho. Penso todos os dias nas coisas que eu fiz e quero concertar elas de alguma forma sabe.",
+                showOptions: false
+            },
+            {
+                character: "Kajuzinho",
+                text: "E por que eu deveria acreditar que dessa vez será diferente?",
+                options: [
+                    "Já ouvimos promessas antes...",
+                    "O que mudou de verdade em você?",
+                    "Eu quero acreditar, mas tenho tanto medo..."
+                ],
+                responses: [
+                    "Você tem toda razão em duvidar. Por isso não vou fazer promessas vazias. Vou mostrar com minhas ações, dia após dia.",
+                    "Eu estou pensando mais nas coisas agora e aprendendo a valorizar elas. Percebi o quanto você é importante para mim e quero fazer as coisas direito desta vez.",
+                    "Eu entendo seu medo. E prometo fazer você se sentir segura e valorizada. Vou respeitar seu tempo e seus sentimentos."
+                ],
+                points: [2, 2, 3]
+            },
+            {
+                character: "Duzinho",
+                text: "Olha, eu trouxe isso para você... (entrega um chocolate) seu chocolate favorito, então eu trouxe para ver se ajudava um pouco na minha situação.",
+                showOptions: false,
+                triggerChocolate: true
+            },
+            {
+                character: "Kajuzinho",
+                text: "Obrigada... eu gosto muito dele.",
+                options: [
+                    "É um gesto bonito da sua parte.",
+                    "Mas um chocolate não resolve tudo, sabe?",
+                    "Eu aprecio o gesto, obrigada."
+                ],
+                responses: [
+                    "É pouco, eu sei. Mas é um começo. Quero fazer coisas assim mais vezes, coisas que te façam feliz.",
+                    "Você está certa. Não resolve. Mas é um primeiro passo. Prometo mostrar com ações que realmente mudei.",
+                    "De nada, Kajuzinho. É o mínimo que posso fazer depois de tudo. Quero fazer mais por você."
+                ],
+                points: [2, 1, 2]
+            },
+            {
+                character: "Duzinho",
+                text: "Falando eu chocolate favorito, o meu doce favorito é tic tac de pipoca sabia.",
+                showOptions: false
+            },
+            {
+                character: "Kajuzinho",
+                text: "Eu não sabia que você gostava de Tic Tac de Pipoca...",
+                options: [
+                    "É bom saber dessas pequenas coisas sobre você.",
+                    "Por que você está me dizendo isso agora?",
+                    "São essas coisas que a gente devia saber um do outro."
+                ],
+                responses: [
+                    "É... tem tantas coisas que ainda não sabemos um do outro. Gostaria de ter a chance de descobrir mais sobre você também.",
+                    "Porque quero compartilhar essas pequenas coisas com você. Quero que a gente conheça melhor um ao outro.",
+                    "Exatamente. E eu quero conhecer todas as coisas que você gosta, todos os seus sonhos... se você me der essa chance."
+                ],
+                points: [2, 2, 3],
+                triggerPopcornThought: true
+            },
+            {
+                character: "Duzinho",
+                text: "Bom... eu não quero pressionar você. Só queria dizer que estou aqui, e que realmente quero fazer as coisas direito desta vez.",
+                showOptions: false,
+                finalDialogue: true
+            }
+        ];
+        
+        // Diálogos da entrega do Tic Tac - COM BOTÕES CONTINUE
+        const popcornDeliveryDialogues = [
+            {
+                character: "Kajuzinho",
+                text: "Duzinho... eu fui na loja de doces. (entrega o Tic Tac de Pipoca) Peguei isso para você."
+            },
+            {
+                character: "Duzinho",
+                text: "(Segura o Tic Tac, surpreso) Kajuzinho... você foi comprar Tic Tac para mim?"
+            },
+            {
+                character: "Kajuzinho",
+                text: "Ainda não te perdoei 100% e ainda não confio muito em você... mas quero tentar as coisas com o tempo. E esse Tic Tac é a marca que nós estamos juntos de novo."
+            },
+            {
+                character: "Duzinho",
+                text: "(Emocionado) Kajuzinho... isso significa tudo para mim. Eu entendo que não é fácil, e eu não espero perdão imediato. Mas o fato de você estar tentando... isso já é mais do que eu mereço."
+            },
+            {
+                character: "Kajuzinho",
+                text: "Vamos devagar. Um dia de cada vez. Mas eu quero tentar."
+            },
+            {
+                character: "Duzinho",
+                text: "Obrigado... Obrigado por essa chance, Kajuzinho. Eu prometo que vou honrar sua confiança, mesmo que seja pouca no começo. Vamos fazer dar certo."
+            }
+        ];
+        
+        // Inicializar o jogo
+        function initGame() {
+            // Configurar evento do botão iniciar
+            startButton.addEventListener('click', startGame);
+            
+            // Garantir que a tela de final não esteja visível
+            gameOverScreen.classList.remove('show');
+            
+            updatePositions();
+            setupControls();
+            checkProximityToDuzinho();
+            
+            // Adicionar eventos aos botões
+            option1.addEventListener('click', () => selectOption(0));
+            option2.addEventListener('click', () => selectOption(1));
+            option3.addEventListener('click', () => selectOption(2));
+            continueBtn.addEventListener('click', continueDialogue);
+            actionBtn.addEventListener('click', startConversation);
+            restartBtn.addEventListener('click', restartGame);
+        }
+        
+        // Iniciar o jogo
+        function startGame() {
+            startScreen.classList.add('hidden');
+            gameContainer.classList.remove('hidden');
+            
+            // Inicializar diálogo
+            clearDialogue();
+            addDialogueMessage("Kajuzinho", "Cheguei no shopping... Combinamos de nos encontrar aqui para tentar resolver as coisas. Meu coração está acelerado...", "kajuzinho-message");
+        }
+        
+        // Configurar controles
+        function setupControls() {
+            // Controles de toque
+            upBtn.addEventListener('click', () => moveCharacter(0, -5));
+            downBtn.addEventListener('click', () => moveCharacter(0, 5));
+            leftBtn.addEventListener('click', () => moveCharacter(-5, 0));
+            rightBtn.addEventListener('click', () => moveCharacter(5, 0));
+            
+            // Controles de teclado para desenvolvimento
+            document.addEventListener('keydown', (e) => {
+                if (gameState.gameCompleted) return;
+                
+                switch(e.key) {
+                    case 'ArrowUp': moveCharacter(0, -5); break;
+                    case 'ArrowDown': moveCharacter(0, 5); break;
+                    case 'ArrowLeft': moveCharacter(-5, 0); break;
+                    case 'ArrowRight': moveCharacter(5, 0); break;
+                }
+            });
+        }
+        
+        // Mover personagem
+        function moveCharacter(deltaX, deltaY) {
+            if (gameState.gameCompleted) return;
+            
+            // Atualizar posição
+            gameState.kajuzinhoPosition.x += deltaX;
+            gameState.kajuzinhoPosition.y += deltaY;
+            
+            // Limitar movimento dentro do shopping
+            gameState.kajuzinhoPosition.x = Math.max(10, Math.min(90, gameState.kajuzinhoPosition.x));
+            gameState.kajuzinhoPosition.y = Math.max(15, Math.min(85, gameState.kajuzinhoPosition.y));
+            
+            updatePositions();
+            checkProximityToDuzinho();
+            checkPopcornCollection();
+        }
+        
+        // Atualizar posições na tela
+        function updatePositions() {
+            kajuzinho.style.left = `${gameState.kajuzinhoPosition.x}%`;
+            kajuzinho.style.top = `${gameState.kajuzinhoPosition.y}%`;
+            
+            duzinho.style.left = `${gameState.duzinhoPosition.x}%`;
+            duzinho.style.top = `${gameState.duzinhoPosition.y}%`;
+            
+            popcorn.style.left = `${gameState.popcornPosition.x}%`;
+            popcorn.style.top = `${gameState.popcornPosition.y}%`;
+            
+            chocolate.style.left = `${gameState.chocolatePosition.x}%`;
+            chocolate.style.top = `${gameState.chocolatePosition.y}%`;
+        }
+        
+        // Verificar proximidade com Duzinho
+        function checkProximityToDuzinho() {
+            const distance = Math.sqrt(
+                Math.pow(gameState.kajuzinhoPosition.x - gameState.duzinhoPosition.x, 2) + 
+                Math.pow(gameState.kajuzinhoPosition.y - gameState.duzinhoPosition.y, 2)
+            );
+            
+            if (distance < 15 && !gameState.talkingToDuzinho && !gameState.gameCompleted) {
+                actionBtn.disabled = false;
+                
+                // Definir texto do botão baseado no estado
+                if (gameState.conversationCompleted && !gameState.popcornCollected) {
+                    actionBtn.textContent = "Buscar Tic Tac para Duzinho";
+                } else if (gameState.popcornCollected) {
+                    actionBtn.textContent = "Entregar Tic Tac para Duzinho";
+                } else if (!gameState.conversationStarted) {
+                    actionBtn.textContent = "Conversar com Duzinho";
+                } else {
+                    actionBtn.textContent = "Continuar conversa";
+                }
+            } else if (!gameState.talkingToDuzinho) {
+                actionBtn.disabled = true;
+            }
+        }
+        
+        // Verificar se pegou o Tic Tac de Pipoca
+        function checkPopcornCollection() {
+            if (gameState.popcornCollected || !gameState.popcornMissionActive) return;
+            
+            // Calcular distância entre Kajuzinho e o Tic Tac
+            const distance = Math.sqrt(
+                Math.pow(gameState.kajuzinhoPosition.x - gameState.popcornPosition.x, 2) + 
+                Math.pow(gameState.kajuzinhoPosition.y - gameState.popcornPosition.y, 2)
+            );
+            
+            // Se estiver perto o suficiente, pegar o Tic Tac
+            if (distance < 8) {
+                gameState.popcornCollected = true;
+                addToInventory("🍿", "Tic Tac de Pipoca");
+                popcorn.classList.add('hidden');
+                
+                addDialogueMessage("Kajuzinho", "Consegui o Tic Tac de Pipoca! Agora posso voltar para o Duzinho...", "kajuzinho-message");
+                
+                // Atualizar botão de ação
+                checkProximityToDuzinho();
+            }
+        }
+        
+        // Adicionar item ao inventário
+        function addToInventory(icon, name) {
+            gameState.inventory.push({icon, name});
+            updateInventoryDisplay();
+        }
+        
+        // Verificar se tem item no inventário
+        function hasItem(icon) {
+            return gameState.inventory.some(item => item.icon === icon);
+        }
+        
+        // Atualizar display do inventário
+        function updateInventoryDisplay() {
+            inventoryItems.innerHTML = '';
+            
+            if (gameState.inventory.length === 0) {
+                const emptyItem = document.createElement('div');
+                emptyItem.className = 'inventory-item';
+                emptyItem.innerHTML = `
+                    <div class="item-icon">?</div>
+                    <span>Vazio</span>
+                `;
+                inventoryItems.appendChild(emptyItem);
+            } else {
+                gameState.inventory.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'inventory-item';
+                    
+                    const iconClass = item.icon === '🍫' ? 'chocolate-icon' : '';
+                    
+                    itemElement.innerHTML = `
+                        <div class="item-icon ${iconClass}">${item.icon}</div>
+                        <span>${item.name}</span>
+                    `;
+                    inventoryItems.appendChild(itemElement);
+                });
+            }
+        }
+        
+        // Adicionar mensagem ao diálogo
+        function addDialogueMessage(character, message, messageClass) {
+            const characterClass = character === "Kajuzinho" ? "kajuzinho-name" : "duzinho-name";
+            const messageElement = document.createElement('div');
+            messageElement.className = `dialogue-message ${messageClass || (character === "Kajuzinho" ? "kajuzinho-message" : "duzinho-message")}`;
+            messageElement.innerHTML = `
+                <span class="character-name ${characterClass}">${character}</span>
+                <div>${message}</div>
+            `;
+            dialogueText.appendChild(messageElement);
+            
+            // Rolar para a última mensagem
+            dialogueText.scrollTop = dialogueText.scrollHeight;
+        }
+        
+        // Limpar diálogo
+        function clearDialogue() {
+            dialogueText.innerHTML = '';
+        }
+        
+        // Iniciar conversa com Duzinho
+        function startConversation() {
+            if (gameState.gameCompleted) return;
+            
+            // Se já coletou o Tic Tac, iniciar entrega
+            if (gameState.popcornCollected) {
+                startPopcornDelivery();
+                return;
+            }
+            
+            // Se a conversa já foi completada, ativar missão do Tic Tac
+            if (gameState.conversationCompleted && !gameState.popcornCollected) {
+                activatePopcornMission();
+                return;
+            }
+            
+            gameState.talkingToDuzinho = true;
+            actionBtn.disabled = true;
+            actionBtn.classList.add('hidden');
+            
+            // Se já começou a conversa, continuar diálogos
+            if (gameState.conversationStarted) {
+                continueDialogue();
+                return;
+            }
+            
+            // Primeira conversa
+            gameState.conversationStarted = true;
+            clearDialogue();
+            
+            // Diálogo inicial
+            addDialogueMessage("Kajuzinho", "Oi, Duzinho...", "kajuzinho-message");
+            
+            // Mostrar próximo diálogo após um breve delay
+            setTimeout(() => {
+                continueDialogue();
+            }, 1000);
+        }
+        
+        // Ativar missão do Tic Tac
+        function activatePopcornMission() {
+            clearDialogue();
+            addDialogueMessage("Kajuzinho", "(Pensando) Ele mencionou que gosta de Tic Tac de Pipoca... talvez eu deva comprar um para ele. Seria um gesto de que estou disposta a tentar.", "kajuzinho-message");
+            
+            // Mostrar o Tic Tac na loja de doces
+            popcorn.style.display = 'flex';
+            gameState.popcornMissionActive = true;
+            
+            actionBtn.disabled = true;
+            actionBtn.textContent = "Buscar Tic Tac na loja de doces";
+            checkProximityToDuzinho();
+        }
+        
+        // Iniciar entrega do Tic Tac - NOVA FUNÇÃO
+        function startPopcornDelivery() {
+            gameState.talkingToDuzinho = true;
+            actionBtn.disabled = true;
+            actionBtn.classList.add('hidden');
+            gameState.popcornDeliveryStep = 0;
+            
+            clearDialogue();
+            showNextPopcornDeliveryDialogue();
+        }
+        
+        // Mostrar próximo diálogo da entrega do Tic Tac - NOVA FUNÇÃO
+        function showNextPopcornDeliveryDialogue() {
+            if (gameState.popcornDeliveryStep >= popcornDeliveryDialogues.length) {
+                // Finalizar entrega do Tic Tac
+                gameState.gameCompleted = true;
+                setTimeout(() => {
+                    showEnding();
+                }, 1500);
+                return;
+            }
+            
+            const dialogue = popcornDeliveryDialogues[gameState.popcornDeliveryStep];
+            const messageClass = dialogue.character === "Kajuzinho" ? "kajuzinho-message" : "duzinho-message";
+            
+            addDialogueMessage(dialogue.character, dialogue.text, messageClass);
+            
+            gameState.popcornDeliveryStep++;
+            
+            // Mostrar botão continue
+            setTimeout(() => {
+                continueBtn.classList.remove('hidden');
+            }, 800);
+        }
+        
+        // Continuar diálogo
+        function continueDialogue() {
+            // Esconder botão continue
+            continueBtn.classList.add('hidden');
+            
+            // Se estiver entregando Tic Tac, usar lógica diferente
+            if (gameState.popcornCollected && !gameState.gameCompleted) {
+                showNextPopcornDeliveryDialogue();
+                return;
+            }
+            
+            if (gameState.dialogueStep >= dialogues.length) {
+                // Diálogos acabaram - completar conversa
+                gameState.conversationCompleted = true;
+                
+                // Adicionar mensagem final da conversa
+                addDialogueMessage("Kajuzinho", "Preciso pensar sobre tudo isso...", "kajuzinho-message");
+                
+                setTimeout(() => {
+                    // Ativar missão do Tic Tac
+                    gameState.popcornMissionActive = true;
+                    actionBtn.textContent = "Buscar Tic Tac para Duzinho";
+                    actionBtn.classList.remove('hidden');
+                    actionBtn.disabled = true;
+                    gameState.talkingToDuzinho = false;
+                    checkProximityToDuzinho();
+                }, 1500);
+                
+                return;
+            }
+            
+            const dialogue = dialogues[gameState.dialogueStep];
+            addDialogueMessage(dialogue.character, dialogue.text, dialogue.character === "Kajuzinho" ? "kajuzinho-message" : "duzinho-message");
+            
+            // Verificar se dá chocolate
+            if (dialogue.triggerChocolate && !gameState.chocolateGiven) {
+                setTimeout(() => {
+                    chocolate.style.display = 'flex';
+                    gameState.chocolateGiven = true;
+                    addToInventory("🍫", "Chocolate");
+                }, 500);
+            }
+            
+            // Se o diálogo tem opções para Kajuzinho, mostrar
+            if (dialogue.options && dialogue.character === "Kajuzinho") {
+                // Mostrar opções após um breve delay
+                setTimeout(() => {
+                    showDialogueOptions(gameState.dialogueStep);
+                }, 800);
+            } else {
+                // Se não tem opções, mostrar botão continue
+                setTimeout(() => {
+                    continueBtn.classList.remove('hidden');
+                    gameState.dialogueStep++;
+                }, 800);
+            }
+        }
+        
+        // Mostrar opções de diálogo
+        function showDialogueOptions(stepIndex) {
+            if (stepIndex >= dialogues.length) return;
+            
+            const dialogue = dialogues[stepIndex];
+            
+            option1.textContent = dialogue.options[0];
+            option2.textContent = dialogue.options[1];
+            option3.textContent = dialogue.options[2];
+            
+            option1.classList.remove('hidden');
+            option2.classList.remove('hidden');
+            option3.classList.remove('hidden');
+        }
+        
+        // Selecionar opção de diálogo
+        function selectOption(optionIndex) {
+            if (gameState.dialogueStep >= dialogues.length) return;
+            
+            const dialogue = dialogues[gameState.dialogueStep];
+            
+            // Adicionar resposta da Kajuzinho
+            addDialogueMessage("Kajuzinho", dialogue.options[optionIndex], "kajuzinho-message");
+            
+            // Adicionar pontos de reconciliação
+            gameState.reconciliationPoints += dialogue.points[optionIndex];
+            
+            // Esconder opções
+            option1.classList.add('hidden');
+            option2.classList.add('hidden');
+            option3.classList.add('hidden');
+            
+            // Mostrar resposta do Duzinho após um delay
+            setTimeout(() => {
+                addDialogueMessage("Duzinho", dialogue.responses[optionIndex], "duzinho-message");
+                
+                // Avançar para o próximo diálogo
+                gameState.dialogueStep++;
+                
+                // Mostrar botão continue após um delay
+                setTimeout(() => {
+                    continueBtn.classList.remove('hidden');
+                }, 1000);
+            }, 800);
+        }
+        
+        // Mostrar final do jogo - ATUALIZADO
+        function showEnding() {
+            // Atualizar mensagem de final
+            endingMessage.innerHTML = `
+                <p>Com um simples Tic Tac de Pipoca entregue no shopping, Kajuzinho e Duzinho dão o primeiro passo em direção a um novo começo.</p>
+                <br>
+                <p><span class="duzinho-name">Duzinho</span> guarda o Tic Tac com cuidado: "Vou guardar isso para sempre, Kajuzinho. Como lembrança do dia em que você me deu uma segunda chance."</p>
+                <br>
+                <p><span class="kajuzinho-name">Kajuzinho</span> sorri timidamente: "Não é um perdão completo ainda... mas é um começo. Um Tic Tac de cada vez."</p>
+                <br>
+                <p>E assim, entre as luzes do shopping, eles descobrem que recomeços podem ser tão simples quanto compartilhar um doce favorito.</p>
+            `;
+            
+            // Mostrar tela de final
+            gameOverScreen.classList.add('show');
+        }
+        
+        // Reiniciar jogo - ATUALIZADO
+        function restartGame() {
+            gameState = {
+                kajuzinhoPosition: { x: 20, y: 60 },
+                duzinhoPosition: { x: 70, y: 60 },
+                popcornPosition: { x: 12, y: 25 },
+                chocolatePosition: { x: 72, y: 65 },
+                inventory: [],
+                talkingToDuzinho: false,
+                dialogueStep: 0,
+                gameCompleted: false,
+                conversationStarted: false,
+                reconciliationPoints: 0,
+                popcornMissionActive: false,
+                chocolateGiven: false,
+                popcornDialogueTriggered: false,
+                conversationCompleted: false,
+                popcornCollected: false,
+                popcornDeliveryStep: 0
+            };
+            
+            updatePositions();
+            
+            // Resetar elementos visuais
+            popcorn.style.display = 'none';
+            popcorn.classList.remove('hidden');
+            chocolate.style.display = 'none';
+            updateInventoryDisplay();
+            actionBtn.textContent = "Encontre o Duzinho";
+            actionBtn.disabled = true;
+            actionBtn.classList.remove('hidden');
+            
+            // Resetar diálogo
+            clearDialogue();
+            addDialogueMessage("Kajuzinho", "Cheguei no shopping... Combinamos de nos encontrar aqui para tentar resolver as coisas. Meu coração está acelerado...", "kajuzinho-message");
+            
+            // Esconder opções e botões
+            option1.classList.add('hidden');
+            option2.classList.add('hidden');
+            option3.classList.add('hidden');
+            continueBtn.classList.add('hidden');
+            
+            // Esconder tela de final
+            gameOverScreen.classList.remove('show');
+            
+            // Voltar para tela inicial
+            gameContainer.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+        }
+        
+        // Inicializar o jogo quando a página carregar
+        window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>
