@@ -19,13 +19,12 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
         }
         
         .game-container {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            height: 100vh;
             max-width: 500px;
             margin: 0 auto;
             position: relative;
@@ -54,7 +53,7 @@
         }
         
         .game-title {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             color: #f72585;
             margin-bottom: 10px;
             text-shadow: 0 0 10px rgba(247, 37, 133, 0.5);
@@ -63,48 +62,48 @@
         }
         
         .game-subtitle {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             color: #4cc9f0;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-shadow: 0 0 8px rgba(76, 201, 240, 0.5);
         }
         
         .pixel-art {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-bottom: 40px;
+            gap: 20px;
+            margin-bottom: 30px;
         }
         
         .pixel-character {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            border: 4px solid white;
+            border: 3px solid white;
         }
         
         .pixel-kajuzinho {
             background-color: #f72585;
-            box-shadow: 0 0 15px #f72585;
+            box-shadow: 0 0 10px #f72585;
         }
         
         .pixel-duzinho {
             background-color: #4361ee;
-            box-shadow: 0 0 15px #4361ee;
+            box-shadow: 0 0 10px #4361ee;
         }
         
         .start-button {
             background-color: #f72585;
             border: none;
             color: white;
-            padding: 20px 50px;
+            padding: 15px 40px;
             border-radius: 10px;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             cursor: pointer;
             font-weight: bold;
             margin-top: 20px;
@@ -113,38 +112,32 @@
             box-shadow: 0 0 15px rgba(247, 37, 133, 0.7);
         }
         
-        .start-button:hover {
-            transform: scale(1.05);
-            background-color: #e11575;
-        }
-        
         .start-button:active {
             transform: scale(0.95);
         }
         
         .start-instruction {
-            margin-top: 30px;
+            margin-top: 20px;
             color: #ccc;
-            font-size: 1.1rem;
-            max-width: 400px;
+            font-size: 1rem;
+            max-width: 300px;
         }
         
         .game-header {
             text-align: center;
-            padding: 15px;
+            padding: 10px;
             background-color: rgba(0, 0, 0, 0.5);
             border-bottom: 2px solid #4cc9f0;
-            flex-shrink: 0;
         }
         
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-bottom: 5px;
             color: #4cc9f0;
         }
         
         .game-subtitle-small {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #ccc;
         }
         
@@ -152,13 +145,10 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            position: relative;
-            overflow-y: auto;
         }
         
         .map-container {
             flex: 1;
-            min-height: 250px;
             position: relative;
             background-color: #f0f0f0;
             overflow: hidden;
@@ -171,12 +161,8 @@
             background-color: #e8e8e8;
         }
         
-        .floor {
-            position: absolute;
-            background-color: #f5f5f5;
-        }
-        
         .mall-floor {
+            position: absolute;
             width: 90%;
             height: 85%;
             top: 10%;
@@ -200,9 +186,6 @@
             border-radius: 5px;
             z-index: 10;
             overflow: hidden;
-            word-break: break-word;
-            line-height: 1.2;
-            box-sizing: border-box;
         }
         
         .bench {
@@ -212,59 +195,57 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 15;
+            z-index: 10;
         }
         
         .bench::before, .bench::after {
             content: "";
             position: absolute;
-            width: 8px;
-            height: 15px;
+            width: 6px;
+            height: 12px;
             background-color: #5d432c;
-            top: -15px;
-            z-index: 14;
+            top: -12px;
         }
         
         .bench::before {
-            left: 5px;
+            left: 4px;
         }
         
         .bench::after {
-            right: 5px;
+            right: 4px;
         }
         
         .tree {
             position: absolute;
-            width: 25px;
-            height: 25px;
+            width: 20px;
+            height: 20px;
             background-color: #2e7d32;
             border-radius: 50%;
-            z-index: 15;
+            z-index: 10;
         }
         
         .tree::after {
             content: "";
             position: absolute;
-            width: 5px;
-            height: 15px;
+            width: 4px;
+            height: 12px;
             background-color: #5d4037;
-            bottom: -15px;
-            left: 10px;
-            z-index: 14;
+            bottom: -12px;
+            left: 8px;
         }
         
         .fountain {
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             background-color: #4fc3f7;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
-            z-index: 15;
+            font-size: 1.2rem;
+            z-index: 10;
         }
         
         .character {
@@ -278,41 +259,30 @@
             transition: all 0.3s ease;
             z-index: 50;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             border: 2px solid white;
             box-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
         
         .kajuzinho {
             background-color: #f72585;
-            box-shadow: 0 0 10px #f72585;
-        }
-        
-        .kajuzinho::after {
-            content: "🎀";
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            font-size: 0.9rem;
-            transform: rotate(15deg);
         }
         
         .duzinho {
             background-color: #4361ee;
-            box-shadow: 0 0 10px #4361ee;
         }
         
         .popcorn {
             position: absolute;
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
             background-color: #FFD700;
-            border-radius: 8px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 0 8px #FFD700;
+            font-size: 1.3rem;
+            box-shadow: 0 0 6px #FFD700;
             z-index: 40;
             border: 2px solid #FFA500;
             animation: pulse 2s infinite;
@@ -320,14 +290,14 @@
         
         .chocolate {
             position: absolute;
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             background-color: #6d4c41;
-            border-radius: 5px;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             z-index: 40;
             border: 2px solid #5d4037;
         }
@@ -339,53 +309,47 @@
         }
         
         .controls-container {
-            padding: 15px 10px;
+            padding: 10px;
             background-color: rgba(0, 0, 0, 0.8);
             display: flex;
             justify-content: center;
             align-items: center;
             flex-shrink: 0;
-            min-height: 140px;
+            min-height: 120px;
         }
         
         .d-pad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(3, 1fr);
-            gap: 8px;
-            width: 160px;
-            height: 160px;
-            position: relative;
+            gap: 5px;
+            width: 140px;
+            height: 140px;
         }
         
         .d-pad-center {
             grid-column: 2;
             grid-row: 2;
             background-color: #333;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
         
         .control-btn {
             background-color: #4361ee;
             border: none;
             color: white;
-            font-size: 2rem;
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             user-select: none;
-            transition: all 0.1s;
-            border-radius: 12px;
-            min-width: 50px;
-            min-height: 50px;
-            width: 100%;
-            height: 100%;
+            border-radius: 8px;
         }
         
         .control-btn:active {
@@ -401,7 +365,6 @@
         #down {
             grid-column: 2;
             grid-row: 3;
-            font-size: 2rem;
         }
         
         #left {
@@ -417,24 +380,19 @@
         .dialogue-container {
             flex: 1;
             background-color: rgba(0, 0, 0, 0.85);
-            padding: 15px;
+            padding: 10px;
             overflow-y: auto;
             border-top: 2px solid #f72585;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 220px;
-            max-height: 300px;
+            min-height: 200px;
         }
         
         .dialogue-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 15px;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
             overflow-y: auto;
         }
         
@@ -442,7 +400,7 @@
             color: #4cc9f0;
             font-weight: bold;
             margin-bottom: 5px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             display: block;
         }
         
@@ -455,10 +413,10 @@
         }
         
         .dialogue-message {
-            margin-bottom: 10px;
-            padding: 10px;
+            margin-bottom: 8px;
+            padding: 8px;
             background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
+            border-radius: 6px;
             border-left: 3px solid;
         }
         
@@ -473,40 +431,32 @@
         .dialogue-options {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 5px;
             margin-top: 10px;
-            flex-shrink: 0;
         }
         
         .dialogue-btn {
             background-color: #4361ee;
             border: none;
             color: white;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 1rem;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.2s;
             text-align: left;
-        }
-        
-        .dialogue-btn:hover {
-            background-color: #3a56d4;
         }
         
         .action-btn {
             background-color: #f72585;
             border: none;
             color: white;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1rem;
             cursor: pointer;
             margin-top: 10px;
             font-weight: bold;
-            transition: all 0.2s;
             width: 100%;
-            flex-shrink: 0;
         }
         
         .action-btn:disabled {
@@ -522,35 +472,31 @@
             background-color: #4cc9f0;
             border: none;
             color: white;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 1rem;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
             cursor: pointer;
             margin-top: 10px;
             text-align: center;
             width: 100%;
             font-weight: bold;
-            flex-shrink: 0;
         }
         
         .inventory {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 5px;
+            left: 5px;
             background-color: rgba(0, 0, 0, 0.9);
-            padding: 10px;
-            border-radius: 8px;
+            padding: 8px;
+            border-radius: 6px;
             border: 2px solid #4cc9f0;
             z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-width: 150px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.7);
+            max-width: 120px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.7);
         }
         
         .inventory-title {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             margin-bottom: 5px;
             color: #4cc9f0;
             font-weight: bold;
@@ -560,22 +506,19 @@
         .inventory-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 5px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
+            gap: 8px;
+            padding: 4px;
         }
         
         .item-icon {
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             background-color: #FFD700;
-            border-radius: 5px;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
+            font-size: 1rem;
         }
         
         .chocolate-icon {
@@ -583,7 +526,7 @@
         }
         
         .inventory-text {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: white;
             font-weight: bold;
         }
@@ -605,7 +548,7 @@
             justify-content: center;
             z-index: 200;
             text-align: center;
-            padding: 20px;
+            padding: 15px;
         }
         
         .game-over.show {
@@ -614,22 +557,22 @@
         
         .game-over h2 {
             color: #4cc9f0;
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
         }
         
         .game-over p {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            max-width: 400px;
-            line-height: 1.6;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            max-width: 350px;
+            line-height: 1.5;
         }
         
         .game-over-message {
             background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
             border-left: 4px solid #f72585;
         }
         
@@ -637,187 +580,16 @@
             background-color: #f72585;
             border: none;
             color: white;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.2rem;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 1.1rem;
             cursor: pointer;
             font-weight: bold;
             margin-top: 10px;
-            transition: all 0.2s;
         }
         
         .restart-btn:active {
             transform: scale(0.98);
-        }
-        
-        @media (max-width: 500px) {
-            .game-title {
-                font-size: 2.5rem;
-            }
-            
-            .game-subtitle {
-                font-size: 1.4rem;
-            }
-            
-            .start-button {
-                padding: 15px 40px;
-                font-size: 1.5rem;
-            }
-            
-            .controls-container {
-                padding: 12px 8px;
-                min-height: 130px;
-            }
-            
-            .d-pad {
-                width: 150px;
-                height: 150px;
-                gap: 6px;
-            }
-            
-            .control-btn {
-                font-size: 1.8rem;
-            }
-            
-            #down {
-                font-size: 1.8rem;
-            }
-            
-            .dialogue-container {
-                padding: 12px;
-                min-height: 200px;
-                max-height: 280px;
-            }
-            
-            .dialogue-text {
-                font-size: 1rem;
-            }
-            
-            .dialogue-message {
-                padding: 8px;
-                margin-bottom: 8px;
-            }
-            
-            .character-name {
-                font-size: 1.1rem;
-            }
-            
-            .store {
-                font-size: 0.65rem;
-                padding: 4px;
-            }
-            
-            .inventory {
-                max-width: 130px;
-                padding: 8px;
-            }
-            
-            .inventory-title {
-                font-size: 0.8rem;
-            }
-            
-            .inventory-text {
-                font-size: 0.8rem;
-            }
-            
-            .game-over {
-                padding: 15px;
-            }
-            
-            .game-over h2 {
-                font-size: 1.8rem;
-            }
-            
-            .game-over p {
-                font-size: 1.1rem;
-            }
-        }
-        
-        @media (max-height: 700px) {
-            .game-area {
-                overflow-y: auto;
-            }
-            
-            .map-container {
-                min-height: 200px;
-            }
-            
-            .dialogue-container {
-                min-height: 180px;
-                max-height: 250px;
-            }
-            
-            .controls-container {
-                min-height: 120px;
-            }
-        }
-        
-        @media (max-height: 600px) {
-            .game-header {
-                padding: 10px;
-            }
-            
-            .game-header h1 {
-                font-size: 1.3rem;
-            }
-            
-            .map-container {
-                min-height: 180px;
-            }
-            
-            .dialogue-container {
-                min-height: 150px;
-                max-height: 200px;
-            }
-            
-            .controls-container {
-                min-height: 110px;
-                padding: 10px 8px;
-            }
-            
-            .d-pad {
-                width: 140px;
-                height: 140px;
-            }
-            
-            .control-btn {
-                font-size: 1.6rem;
-            }
-            
-            .store {
-                font-size: 0.6rem;
-            }
-        }
-        
-        /* Para telas muito pequenas em altura */
-        @media (max-height: 500px) {
-            .map-container {
-                min-height: 150px;
-            }
-            
-            .dialogue-container {
-                min-height: 120px;
-                max-height: 160px;
-            }
-            
-            .controls-container {
-                min-height: 100px;
-                padding: 8px;
-            }
-            
-            .d-pad {
-                width: 130px;
-                height: 130px;
-            }
-            
-            .dialogue-message {
-                padding: 6px;
-                margin-bottom: 6px;
-            }
-            
-            .character-name {
-                font-size: 1rem;
-            }
         }
     </style>
 </head>
@@ -851,31 +623,31 @@
             <div class="map-container">
                 <div class="map">
                     <!-- Piso do shopping -->
-                    <div class="floor mall-floor"></div>
+                    <div class="mall-floor"></div>
                     
-                    <!-- Lojas - LAYOUT ORIGINAL -->
-                    <div class="store" style="width: 80px; height: 60px; top: 15%; left: 10%;">Loja de<br>Doces</div>
-                    <div class="store" style="width: 70px; height: 60px; top: 15%; left: 40%;">Cinema</div>
-                    <div class="store" style="width: 80px; height: 60px; top: 15%; left: 70%;">Loja de<br>Presentes</div>
+                    <!-- Lojas -->
+                    <div class="store" style="width: 60px; height: 45px; top: 20px; left: 20px;">Loja de<br>Doces</div>
+                    <div class="store" style="width: 55px; height: 45px; top: 20px; left: 100px;">Cinema</div>
+                    <div class="store" style="width: 60px; height: 45px; top: 20px; left: 180px;">Loja de<br>Presentes</div>
                     
-                    <!-- Bancos - LAYOUT ORIGINAL -->
-                    <div class="bench" style="width: 60px; height: 15px; top: 40%; left: 20%;"></div>
-                    <div class="bench" style="width: 60px; height: 15px; top: 40%; left: 60%;"></div>
+                    <!-- Bancos -->
+                    <div class="bench" style="width: 50px; height: 12px; top: 100px; left: 40px;"></div>
+                    <div class="bench" style="width: 50px; height: 12px; top: 100px; left: 170px;"></div>
                     
-                    <!-- Árvores decorativas - LAYOUT ORIGINAL -->
-                    <div class="tree" style="top: 30%; left: 45%;"></div>
-                    <div class="tree" style="top: 30%; left: 80%;"></div>
+                    <!-- Árvores -->
+                    <div class="tree" style="top: 80px; left: 110px;"></div>
+                    <div class="tree" style="top: 80px; left: 200px;"></div>
                     
-                    <!-- Fonte - LAYOUT ORIGINAL -->
-                    <div class="fountain" style="top: 75%; left: 45%;">⛲</div>
+                    <!-- Fonte -->
+                    <div class="fountain" style="top: 180px; left: 110px;">⛲</div>
                     
-                    <!-- Personagens - LAYOUT ORIGINAL (um de cada lado) -->
-                    <div class="character kajuzinho" style="top: 60%; left: 20%;">K</div>
-                    <div class="character duzinho" style="top: 60%; left: 70%;">D</div>
+                    <!-- Personagens -->
+                    <div class="character kajuzinho" style="top: 150px; left: 50px;">K</div>
+                    <div class="character duzinho" style="top: 150px; left: 200px;">D</div>
                     
                     <!-- Itens -->
-                    <div class="popcorn" id="popcorn" style="top: 20%; left: 12%; display: none;">🍿</div>
-                    <div class="chocolate" id="chocolate" style="top: 65%; left: 72%; display: none;">🍫</div>
+                    <div class="popcorn" id="popcorn" style="top: 30px; left: 25px; display: none;">🍿</div>
+                    <div class="chocolate" id="chocolate" style="top: 140px; left: 210px; display: none;">🍫</div>
                     
                     <div class="inventory">
                         <div class="inventory-title">Inventário</div>
@@ -944,10 +716,7 @@
         const continueBtn = document.getElementById('continue-btn');
         const actionBtn = document.getElementById('action-btn');
         const inventoryItems = document.getElementById('inventory-items');
-        const inventoryText = document.getElementById('inventory-text');
-        const inventoryIcon = document.getElementById('inventory-icon');
         const gameOverScreen = document.getElementById('game-over');
-        const endingMessage = document.getElementById('ending-message');
         const restartBtn = document.getElementById('restart-btn');
         
         // Controles
@@ -956,12 +725,12 @@
         const leftBtn = document.getElementById('left');
         const rightBtn = document.getElementById('right');
         
-        // Estado do jogo - VOLTANDO AO ORIGINAL
+        // Estado do jogo
         let gameState = {
-            kajuzinhoPosition: { x: 20, y: 60 },
-            duzinhoPosition: { x: 70, y: 60 },
-            popcornPosition: { x: 12, y: 20 },
-            chocolatePosition: { x: 72, y: 65 },
+            kajuzinhoPosition: { x: 50, y: 150 },
+            duzinhoPosition: { x: 200, y: 150 },
+            popcornPosition: { x: 25, y: 30 },
+            chocolatePosition: { x: 210, y: 140 },
             inventory: [],
             talkingToDuzinho: false,
             dialogueStep: 0,
@@ -1098,17 +867,13 @@
         
         // Inicializar o jogo
         function initGame() {
-            // Configurar evento do botão iniciar
             startButton.addEventListener('click', startGame);
-            
-            // Garantir que a tela de final não esteja visível
             gameOverScreen.classList.remove('show');
             
             updatePositions();
             setupControls();
             checkProximityToDuzinho();
             
-            // Adicionar eventos aos botões
             option1.addEventListener('click', () => selectOption(0));
             option2.addEventListener('click', () => selectOption(1));
             option3.addEventListener('click', () => selectOption(2));
@@ -1122,28 +887,25 @@
             startScreen.classList.add('hidden');
             gameContainer.classList.remove('hidden');
             
-            // Inicializar diálogo
             clearDialogue();
             addDialogueMessage("Kajuzinho", "Cheguei no shopping... Combinamos de nos encontrar aqui para tentar resolver as coisas. Meu coração está acelerado...", "kajuzinho-message");
         }
         
         // Configurar controles
         function setupControls() {
-            // Controles de toque
-            upBtn.addEventListener('click', () => moveCharacter(0, -5));
-            downBtn.addEventListener('click', () => moveCharacter(0, 5));
-            leftBtn.addEventListener('click', () => moveCharacter(-5, 0));
-            rightBtn.addEventListener('click', () => moveCharacter(5, 0));
+            upBtn.addEventListener('click', () => moveCharacter(0, -10));
+            downBtn.addEventListener('click', () => moveCharacter(0, 10));
+            leftBtn.addEventListener('click', () => moveCharacter(-10, 0));
+            rightBtn.addEventListener('click', () => moveCharacter(10, 0));
             
-            // Controles de teclado para desenvolvimento
             document.addEventListener('keydown', (e) => {
                 if (gameState.gameCompleted) return;
                 
                 switch(e.key) {
-                    case 'ArrowUp': moveCharacter(0, -5); break;
-                    case 'ArrowDown': moveCharacter(0, 5); break;
-                    case 'ArrowLeft': moveCharacter(-5, 0); break;
-                    case 'ArrowRight': moveCharacter(5, 0); break;
+                    case 'ArrowUp': moveCharacter(0, -10); break;
+                    case 'ArrowDown': moveCharacter(0, 10); break;
+                    case 'ArrowLeft': moveCharacter(-10, 0); break;
+                    case 'ArrowRight': moveCharacter(10, 0); break;
                 }
             });
         }
@@ -1152,13 +914,12 @@
         function moveCharacter(deltaX, deltaY) {
             if (gameState.gameCompleted) return;
             
-            // Atualizar posição
             gameState.kajuzinhoPosition.x += deltaX;
             gameState.kajuzinhoPosition.y += deltaY;
             
-            // Limitar movimento dentro do shopping
-            gameState.kajuzinhoPosition.x = Math.max(10, Math.min(90, gameState.kajuzinhoPosition.x));
-            gameState.kajuzinhoPosition.y = Math.max(15, Math.min(85, gameState.kajuzinhoPosition.y));
+            // Limitar movimento
+            gameState.kajuzinhoPosition.x = Math.max(20, Math.min(280, gameState.kajuzinhoPosition.x));
+            gameState.kajuzinhoPosition.y = Math.max(20, Math.min(280, gameState.kajuzinhoPosition.y));
             
             updatePositions();
             checkProximityToDuzinho();
@@ -1167,17 +928,8 @@
         
         // Atualizar posições na tela
         function updatePositions() {
-            kajuzinho.style.left = `${gameState.kajuzinhoPosition.x}%`;
-            kajuzinho.style.top = `${gameState.kajuzinhoPosition.y}%`;
-            
-            duzinho.style.left = `${gameState.duzinhoPosition.x}%`;
-            duzinho.style.top = `${gameState.duzinhoPosition.y}%`;
-            
-            popcorn.style.left = `${gameState.popcornPosition.x}%`;
-            popcorn.style.top = `${gameState.popcornPosition.y}%`;
-            
-            chocolate.style.left = `${gameState.chocolatePosition.x}%`;
-            chocolate.style.top = `${gameState.chocolatePosition.y}%`;
+            kajuzinho.style.left = `${gameState.kajuzinhoPosition.x}px`;
+            kajuzinho.style.top = `${gameState.kajuzinhoPosition.y}px`;
         }
         
         // Verificar proximidade com Duzinho
@@ -1187,10 +939,9 @@
                 Math.pow(gameState.kajuzinhoPosition.y - gameState.duzinhoPosition.y, 2)
             );
             
-            if (distance < 15 && !gameState.talkingToDuzinho && !gameState.gameCompleted) {
+            if (distance < 50 && !gameState.talkingToDuzinho && !gameState.gameCompleted) {
                 actionBtn.disabled = false;
                 
-                // Definir texto do botão baseado no estado
                 if (gameState.conversationCompleted && !gameState.popcornCollected) {
                     actionBtn.textContent = "Buscar Tic Tac para Duzinho";
                 } else if (gameState.popcornCollected) {
@@ -1209,21 +960,17 @@
         function checkPopcornCollection() {
             if (gameState.popcornCollected || !gameState.popcornMissionActive) return;
             
-            // Calcular distância entre Kajuzinho e o Tic Tac
             const distance = Math.sqrt(
                 Math.pow(gameState.kajuzinhoPosition.x - gameState.popcornPosition.x, 2) + 
                 Math.pow(gameState.kajuzinhoPosition.y - gameState.popcornPosition.y, 2)
             );
             
-            // Se estiver perto o suficiente, pegar o Tic Tac
-            if (distance < 8) {
+            if (distance < 30) {
                 gameState.popcornCollected = true;
                 addToInventory("🍿", "Tic Tac de Pipoca");
                 popcorn.classList.add('hidden');
                 
                 addDialogueMessage("Kajuzinho", "Consegui o Tic Tac de Pipoca! Agora posso voltar para o Duzinho...", "kajuzinho-message");
-                
-                // Atualizar botão de ação
                 checkProximityToDuzinho();
             }
         }
@@ -1232,11 +979,6 @@
         function addToInventory(icon, name) {
             gameState.inventory.push({icon, name});
             updateInventoryDisplay();
-        }
-        
-        // Verificar se tem item no inventário
-        function hasItem(icon) {
-            return gameState.inventory.some(item => item.icon === icon);
         }
         
         // Atualizar display do inventário
@@ -1278,7 +1020,6 @@
             `;
             dialogueText.appendChild(messageElement);
             
-            // Rolar para a última mensagem
             dialogueText.scrollTop = dialogueText.scrollHeight;
         }
         
@@ -1291,13 +1032,11 @@
         function startConversation() {
             if (gameState.gameCompleted) return;
             
-            // Se já coletou o Tic Tac, iniciar entrega
             if (gameState.popcornCollected) {
                 startPopcornDelivery();
                 return;
             }
             
-            // Se a conversa já foi completada, ativar missão do Tic Tac
             if (gameState.conversationCompleted && !gameState.popcornCollected) {
                 activatePopcornMission();
                 return;
@@ -1307,20 +1046,16 @@
             actionBtn.disabled = true;
             actionBtn.classList.add('hidden');
             
-            // Se já começou a conversa, continuar diálogos
             if (gameState.conversationStarted) {
                 continueDialogue();
                 return;
             }
             
-            // Primeira conversa
             gameState.conversationStarted = true;
             clearDialogue();
             
-            // Diálogo inicial
             addDialogueMessage("Kajuzinho", "Oi, Duzinho...", "kajuzinho-message");
             
-            // Mostrar próximo diálogo após um breve delay
             setTimeout(() => {
                 continueDialogue();
             }, 1000);
@@ -1331,7 +1066,6 @@
             clearDialogue();
             addDialogueMessage("Kajuzinho", "(Pensando) Ele mencionou que gosta de Tic Tac de Pipoca... talvez eu deva comprar um para ele. Seria um gesto de que estou disposta a tentar.", "kajuzinho-message");
             
-            // Mostrar o Tic Tac na loja de doces
             popcorn.style.display = 'flex';
             gameState.popcornMissionActive = true;
             
@@ -1354,7 +1088,6 @@
         // Mostrar próximo diálogo da entrega do Tic Tac
         function showNextPopcornDeliveryDialogue() {
             if (gameState.popcornDeliveryStep >= popcornDeliveryDialogues.length) {
-                // Finalizar entrega do Tic Tac
                 gameState.gameCompleted = true;
                 setTimeout(() => {
                     showEnding();
@@ -1369,7 +1102,6 @@
             
             gameState.popcornDeliveryStep++;
             
-            // Mostrar botão continue
             setTimeout(() => {
                 continueBtn.classList.remove('hidden');
             }, 800);
@@ -1377,24 +1109,19 @@
         
         // Continuar diálogo
         function continueDialogue() {
-            // Esconder botão continue
             continueBtn.classList.add('hidden');
             
-            // Se estiver entregando Tic Tac, usar lógica diferente
             if (gameState.popcornCollected && !gameState.gameCompleted) {
                 showNextPopcornDeliveryDialogue();
                 return;
             }
             
             if (gameState.dialogueStep >= dialogues.length) {
-                // Diálogos acabaram - completar conversa
                 gameState.conversationCompleted = true;
                 
-                // Adicionar mensagem final da conversa
                 addDialogueMessage("Kajuzinho", "Preciso pensar sobre tudo isso...", "kajuzinho-message");
                 
                 setTimeout(() => {
-                    // Ativar missão do Tic Tac
                     gameState.popcornMissionActive = true;
                     actionBtn.textContent = "Buscar Tic Tac para Duzinho";
                     actionBtn.classList.remove('hidden');
@@ -1409,7 +1136,6 @@
             const dialogue = dialogues[gameState.dialogueStep];
             addDialogueMessage(dialogue.character, dialogue.text, dialogue.character === "Kajuzinho" ? "kajuzinho-message" : "duzinho-message");
             
-            // Verificar se dá chocolate
             if (dialogue.triggerChocolate && !gameState.chocolateGiven) {
                 setTimeout(() => {
                     chocolate.style.display = 'flex';
@@ -1418,14 +1144,11 @@
                 }, 500);
             }
             
-            // Se o diálogo tem opções para Kajuzinho, mostrar
             if (dialogue.options && dialogue.character === "Kajuzinho") {
-                // Mostrar opções após um breve delay
                 setTimeout(() => {
                     showDialogueOptions(gameState.dialogueStep);
                 }, 800);
             } else {
-                // Se não tem opções, mostrar botão continue
                 setTimeout(() => {
                     continueBtn.classList.remove('hidden');
                     gameState.dialogueStep++;
@@ -1454,25 +1177,19 @@
             
             const dialogue = dialogues[gameState.dialogueStep];
             
-            // Adicionar resposta da Kajuzinho
             addDialogueMessage("Kajuzinho", dialogue.options[optionIndex], "kajuzinho-message");
             
-            // Adicionar pontos de reconciliação
             gameState.reconciliationPoints += dialogue.points[optionIndex];
             
-            // Esconder opções
             option1.classList.add('hidden');
             option2.classList.add('hidden');
             option3.classList.add('hidden');
             
-            // Mostrar resposta do Duzinho após um delay
             setTimeout(() => {
                 addDialogueMessage("Duzinho", dialogue.responses[optionIndex], "duzinho-message");
                 
-                // Avançar para o próximo diálogo
                 gameState.dialogueStep++;
                 
-                // Mostrar botão continue após um delay
                 setTimeout(() => {
                     continueBtn.classList.remove('hidden');
                 }, 1000);
@@ -1481,7 +1198,6 @@
         
         // Mostrar final do jogo
         function showEnding() {
-            // Atualizar mensagem de final
             endingMessage.innerHTML = `
                 <p>Com um simples Tic Tac de Pipoca entregue no shopping, Kajuzinho e Duzinho dão o primeiro passo em direção a um novo começo.</p>
                 <br>
@@ -1492,17 +1208,16 @@
                 <p>E assim, entre as luzes do shopping, eles descobrem que recomeços podem ser tão simples quanto compartilhar um doce favorito.</p>
             `;
             
-            // Mostrar tela de final
             gameOverScreen.classList.add('show');
         }
         
         // Reiniciar jogo
         function restartGame() {
             gameState = {
-                kajuzinhoPosition: { x: 20, y: 60 },
-                duzinhoPosition: { x: 70, y: 60 },
-                popcornPosition: { x: 12, y: 20 },
-                chocolatePosition: { x: 72, y: 65 },
+                kajuzinhoPosition: { x: 50, y: 150 },
+                duzinhoPosition: { x: 200, y: 150 },
+                popcornPosition: { x: 25, y: 30 },
+                chocolatePosition: { x: 210, y: 140 },
                 inventory: [],
                 talkingToDuzinho: false,
                 dialogueStep: 0,
@@ -1519,7 +1234,6 @@
             
             updatePositions();
             
-            // Resetar elementos visuais
             popcorn.style.display = 'none';
             popcorn.classList.remove('hidden');
             chocolate.style.display = 'none';
@@ -1528,20 +1242,16 @@
             actionBtn.disabled = true;
             actionBtn.classList.remove('hidden');
             
-            // Resetar diálogo
             clearDialogue();
             addDialogueMessage("Kajuzinho", "Cheguei no shopping... Combinamos de nos encontrar aqui para tentar resolver as coisas. Meu coração está acelerado...", "kajuzinho-message");
             
-            // Esconder opções e botões
             option1.classList.add('hidden');
             option2.classList.add('hidden');
             option3.classList.add('hidden');
             continueBtn.classList.add('hidden');
             
-            // Esconder tela de final
             gameOverScreen.classList.remove('show');
             
-            // Voltar para tela inicial
             gameContainer.classList.add('hidden');
             startScreen.classList.remove('hidden');
         }
