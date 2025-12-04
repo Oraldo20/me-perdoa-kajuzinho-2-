@@ -198,6 +198,10 @@
             text-align: center;
             padding: 5px;
             border-radius: 5px;
+            z-index: 10;
+            overflow: hidden;
+            word-break: break-word;
+            line-height: 1.2;
         }
         
         .bench {
@@ -207,6 +211,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 10;
         }
         
         .bench::before, .bench::after {
@@ -232,6 +237,7 @@
             height: 25px;
             background-color: #2e7d32;
             border-radius: 50%;
+            z-index: 10;
         }
         
         .tree::after {
@@ -255,6 +261,7 @@
             justify-content: center;
             color: white;
             font-size: 1.5rem;
+            z-index: 10;
         }
         
         .character {
@@ -266,7 +273,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            z-index: 20;
+            z-index: 50;
             font-weight: bold;
             font-size: 1.2rem;
             border: 2px solid white;
@@ -307,7 +314,7 @@
             justify-content: center;
             font-size: 1.5rem;
             box-shadow: 0 0 8px #FFD700;
-            z-index: 15;
+            z-index: 40;
             border: 2px solid #FFA500;
             animation: pulse 2s infinite;
         }
@@ -322,7 +329,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.3rem;
-            z-index: 15;
+            z-index: 40;
             border: 2px solid #5d4037;
         }
         
@@ -531,21 +538,23 @@
             position: absolute;
             top: 10px;
             left: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             padding: 10px;
             border-radius: 8px;
             border: 1px solid #4cc9f0;
-            z-index: 50;
+            z-index: 100;
             display: flex;
             flex-direction: column;
             gap: 8px;
             max-width: 150px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
         
         .inventory-title {
             font-size: 0.9rem;
             margin-bottom: 5px;
             color: #4cc9f0;
+            font-weight: bold;
         }
         
         .inventory-item {
@@ -570,6 +579,11 @@
             background-color: #6d4c41;
         }
         
+        .inventory-text {
+            font-size: 0.9rem;
+            color: white;
+        }
+        
         .hidden {
             display: none !important;
         }
@@ -585,7 +599,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 100;
+            z-index: 200;
             text-align: center;
             padding: 20px;
         }
@@ -684,6 +698,24 @@
                 font-size: 1.1rem;
             }
             
+            .store {
+                font-size: 0.7rem;
+                padding: 3px;
+            }
+            
+            .inventory {
+                max-width: 130px;
+                padding: 8px;
+            }
+            
+            .inventory-title {
+                font-size: 0.8rem;
+            }
+            
+            .inventory-text {
+                font-size: 0.8rem;
+            }
+            
             .game-over {
                 padding: 15px;
             }
@@ -746,6 +778,10 @@
             
             .control-btn {
                 font-size: 1.6rem;
+            }
+            
+            .store {
+                font-size: 0.6rem;
             }
         }
         
@@ -814,9 +850,9 @@
                     <div class="floor mall-floor"></div>
                     
                     <!-- Lojas -->
-                    <div class="store" style="width: 80px; height: 60px; top: 15%; left: 10%;">Loja de<br>Doces</div>
-                    <div class="store" style="width: 70px; height: 60px; top: 15%; left: 35%;">Cinema</div>
-                    <div class="store" style="width: 80px; height: 60px; top: 15%; left: 65%;">Loja de<br>Presentes</div>
+                    <div class="store" style="width: 70px; height: 50px; top: 15%; left: 10%;">Loja de Doces</div>
+                    <div class="store" style="width: 70px; height: 50px; top: 15%; left: 35%;">Cinema</div>
+                    <div class="store" style="width: 70px; height: 50px; top: 15%; left: 65%;">Loja de Presentes</div>
                     
                     <!-- Bancos -->
                     <div class="bench" style="width: 60px; height: 15px; top: 40%; left: 20%;"></div>
@@ -840,7 +876,7 @@
                         <div id="inventory-items">
                             <div class="inventory-item">
                                 <div class="item-icon" id="inventory-icon">?</div>
-                                <span id="inventory-text">Vazio</span>
+                                <span class="inventory-text" id="inventory-text">Vazio</span>
                             </div>
                         </div>
                     </div>
@@ -902,6 +938,8 @@
         const continueBtn = document.getElementById('continue-btn');
         const actionBtn = document.getElementById('action-btn');
         const inventoryItems = document.getElementById('inventory-items');
+        const inventoryText = document.getElementById('inventory-text');
+        const inventoryIcon = document.getElementById('inventory-icon');
         const gameOverScreen = document.getElementById('game-over');
         const endingMessage = document.getElementById('ending-message');
         const restartBtn = document.getElementById('restart-btn');
@@ -1204,7 +1242,7 @@
                 emptyItem.className = 'inventory-item';
                 emptyItem.innerHTML = `
                     <div class="item-icon">?</div>
-                    <span>Vazio</span>
+                    <span class="inventory-text">Vazio</span>
                 `;
                 inventoryItems.appendChild(emptyItem);
             } else {
@@ -1216,7 +1254,7 @@
                     
                     itemElement.innerHTML = `
                         <div class="item-icon ${iconClass}">${item.icon}</div>
-                        <span>${item.name}</span>
+                        <span class="inventory-text">${item.name}</span>
                     `;
                     inventoryItems.appendChild(itemElement);
                 });
