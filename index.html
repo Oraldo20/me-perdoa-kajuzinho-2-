@@ -29,6 +29,7 @@
             max-width: 500px;
             margin: 0 auto;
             position: relative;
+            width: 100%;
         }
         
         /* Tela de Início */
@@ -128,7 +129,6 @@
             max-width: 400px;
         }
         
-        /* Resto do CSS permanece igual até o final */
         .game-header {
             text-align: center;
             padding: 15px;
@@ -331,11 +331,12 @@
         }
         
         .controls-container {
-            padding: 15px;
+            padding: 10px;
             background-color: rgba(0, 0, 0, 0.8);
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 120px;
         }
         
         .d-pad {
@@ -364,7 +365,7 @@
             background-color: #4361ee;
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -372,6 +373,8 @@
             user-select: none;
             transition: all 0.1s;
             border-radius: 10px;
+            min-width: 50px;
+            min-height: 50px;
         }
         
         .control-btn:active {
@@ -387,6 +390,7 @@
         #down {
             grid-column: 2;
             grid-row: 3;
+            font-size: 1.8rem; /* Garantir que a seta para baixo tenha o mesmo tamanho */
         }
         
         #left {
@@ -402,7 +406,7 @@
         .dialogue-container {
             flex: 2;
             background-color: rgba(0, 0, 0, 0.85);
-            padding: 20px;
+            padding: 15px;
             overflow-y: auto;
             border-top: 2px solid #f72585;
             display: flex;
@@ -414,7 +418,7 @@
         .dialogue-text {
             font-size: 1.1rem;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -438,7 +442,7 @@
         }
         
         .dialogue-message {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             padding: 10px;
             background-color: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
@@ -456,7 +460,7 @@
         .dialogue-options {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             margin-top: 10px;
         }
         
@@ -525,6 +529,7 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            max-width: 150px;
         }
         
         .inventory-title {
@@ -548,6 +553,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
+            flex-shrink: 0;
         }
         
         .chocolate-icon {
@@ -631,21 +637,41 @@
             }
             
             .controls-container {
-                padding: 10px;
+                padding: 8px;
+                min-height: 110px;
             }
             
             .d-pad {
-                width: 130px;
-                height: 130px;
+                width: 140px;
+                height: 140px;
+            }
+            
+            .control-btn {
+                font-size: 1.6rem;
+                min-width: 45px;
+                min-height: 45px;
+            }
+            
+            #down {
+                font-size: 1.6rem;
             }
             
             .dialogue-container {
-                padding: 15px;
+                padding: 12px;
                 min-height: 180px;
             }
             
             .dialogue-text {
                 font-size: 1rem;
+            }
+            
+            .dialogue-message {
+                padding: 8px;
+                margin-bottom: 8px;
+            }
+            
+            .character-name {
+                font-size: 1.1rem;
             }
             
             .game-over {
@@ -658,6 +684,28 @@
             
             .game-over p {
                 font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .d-pad {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .control-btn {
+                font-size: 1.5rem;
+                min-width: 40px;
+                min-height: 40px;
+            }
+            
+            #down {
+                font-size: 1.5rem;
+            }
+            
+            .inventory {
+                max-width: 130px;
+                padding: 8px;
             }
         }
     </style>
@@ -793,7 +841,7 @@
         const leftBtn = document.getElementById('left');
         const rightBtn = document.getElementById('right');
         
-        // Estado do jogo - MANTENDO SEUS DIÁLOGOS
+        // Estado do jogo
         let gameState = {
             kajuzinhoPosition: { x: 20, y: 60 },
             duzinhoPosition: { x: 70, y: 60 },
@@ -810,10 +858,10 @@
             popcornDialogueTriggered: false,
             conversationCompleted: false,
             popcornCollected: false,
-            popcornDeliveryStep: 0  // NOVO: para controlar os passos da entrega
+            popcornDeliveryStep: 0
         };
         
-        // SEUS DIÁLOGOS ORIGINAIS MANTIDOS
+        // Diálogos originais
         const dialogues = [
             {
                 character: "Duzinho",
@@ -905,7 +953,7 @@
             }
         ];
         
-        // Diálogos da entrega do Tic Tac - COM BOTÕES CONTINUE
+        // Diálogos da entrega do Tic Tac
         const popcornDeliveryDialogues = [
             {
                 character: "Kajuzinho",
@@ -1177,7 +1225,7 @@
             checkProximityToDuzinho();
         }
         
-        // Iniciar entrega do Tic Tac - NOVA FUNÇÃO
+        // Iniciar entrega do Tic Tac
         function startPopcornDelivery() {
             gameState.talkingToDuzinho = true;
             actionBtn.disabled = true;
@@ -1188,7 +1236,7 @@
             showNextPopcornDeliveryDialogue();
         }
         
-        // Mostrar próximo diálogo da entrega do Tic Tac - NOVA FUNÇÃO
+        // Mostrar próximo diálogo da entrega do Tic Tac
         function showNextPopcornDeliveryDialogue() {
             if (gameState.popcornDeliveryStep >= popcornDeliveryDialogues.length) {
                 // Finalizar entrega do Tic Tac
@@ -1316,7 +1364,7 @@
             }, 800);
         }
         
-        // Mostrar final do jogo - ATUALIZADO
+        // Mostrar final do jogo
         function showEnding() {
             // Atualizar mensagem de final
             endingMessage.innerHTML = `
@@ -1333,7 +1381,7 @@
             gameOverScreen.classList.add('show');
         }
         
-        // Reiniciar jogo - ATUALIZADO
+        // Reiniciar jogo
         function restartGame() {
             gameState = {
                 kajuzinhoPosition: { x: 20, y: 60 },
