@@ -281,7 +281,6 @@
             font-size: 1.3rem;
             border: 2px solid white;
             box-shadow: 0 0 5px rgba(0,0,0,0.5);
-            transform: translate(-50%, -50%);
         }
         
         .kajuzinho {
@@ -317,7 +316,6 @@
             z-index: 40;
             border: 2px solid #FFA500;
             animation: pulse 2s infinite;
-            transform: translate(-50%, -50%);
         }
         
         .chocolate {
@@ -332,13 +330,12 @@
             font-size: 1.3rem;
             z-index: 40;
             border: 2px solid #5d4037;
-            transform: translate(-50%, -50%);
         }
         
         @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.1); }
-            100% { transform: translate(-50%, -50%) scale(1); }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         
         .controls-container {
@@ -856,27 +853,29 @@
                     <!-- Piso do shopping -->
                     <div class="floor mall-floor"></div>
                     
-                    <!-- Lojas - POSIÇÕES REORGANIZADAS -->
-                    <div class="store" style="width: 70px; height: 50px; top: 15%; left: 15%;">Loja de Doces</div>
-                    <div class="store" style="width: 70px; height: 50px; top: 15%; left: 50%; transform: translateX(-50%);">Cinema</div>
-                    <div class="store" style="width: 70px; height: 50px; top: 15%; left: 85%;">Loja de Presentes</div>
+                    <!-- Lojas - LAYOUT ORIGINAL -->
+                    <div class="store" style="width: 80px; height: 60px; top: 15%; left: 10%;">Loja de<br>Doces</div>
+                    <div class="store" style="width: 70px; height: 60px; top: 15%; left: 40%;">Cinema</div>
+                    <div class="store" style="width: 80px; height: 60px; top: 15%; left: 70%;">Loja de<br>Presentes</div>
                     
-                    <!-- Bancos - POSIÇÕES REORGANIZADAS -->
-                    <div class="bench" style="width: 60px; height: 15px; top: 50%; left: 25%;"></div>
-                    <div class="bench" style="width: 60px; height: 15px; top: 50%; left: 75%;"></div>
+                    <!-- Bancos - LAYOUT ORIGINAL -->
+                    <div class="bench" style="width: 60px; height: 15px; top: 40%; left: 20%;"></div>
+                    <div class="bench" style="width: 60px; height: 15px; top: 40%; left: 60%;"></div>
                     
-                    <!-- Árvores decorativas - POSIÇÕES REORGANIZADAS -->
-                    <div class="tree" style="top: 35%; left: 40%;"></div>
-                    <div class="tree" style="top: 35%; left: 60%;"></div>
+                    <!-- Árvores decorativas - LAYOUT ORIGINAL -->
+                    <div class="tree" style="top: 30%; left: 45%;"></div>
+                    <div class="tree" style="top: 30%; left: 80%;"></div>
                     
-                    <!-- Fonte - POSIÇÃO REORGANIZADA -->
-                    <div class="fountain" style="top: 80%; left: 50%; transform: translate(-50%, -50%);">⛲</div>
+                    <!-- Fonte - LAYOUT ORIGINAL -->
+                    <div class="fountain" style="top: 75%; left: 45%;">⛲</div>
                     
-                    <!-- Personagens e itens - POSIÇÕES REORGANIZADAS -->
-                    <div class="character kajuzinho" style="top: 70%; left: 30%;">K</div>
-                    <div class="character duzinho" style="top: 70%; left: 70%;">D</div>
-                    <div class="popcorn" id="popcorn" style="top: 20%; left: 15%; display: none;">🍿</div>
-                    <div class="chocolate" id="chocolate" style="top: 65%; left: 85%; display: none;">🍫</div>
+                    <!-- Personagens - LAYOUT ORIGINAL (um de cada lado) -->
+                    <div class="character kajuzinho" style="top: 60%; left: 20%;">K</div>
+                    <div class="character duzinho" style="top: 60%; left: 70%;">D</div>
+                    
+                    <!-- Itens -->
+                    <div class="popcorn" id="popcorn" style="top: 20%; left: 12%; display: none;">🍿</div>
+                    <div class="chocolate" id="chocolate" style="top: 65%; left: 72%; display: none;">🍫</div>
                     
                     <div class="inventory">
                         <div class="inventory-title">Inventário</div>
@@ -957,12 +956,12 @@
         const leftBtn = document.getElementById('left');
         const rightBtn = document.getElementById('right');
         
-        // Estado do jogo
+        // Estado do jogo - VOLTANDO AO ORIGINAL
         let gameState = {
-            kajuzinhoPosition: { x: 30, y: 70 },
-            duzinhoPosition: { x: 70, y: 70 },
-            popcornPosition: { x: 15, y: 20 },
-            chocolatePosition: { x: 85, y: 65 },
+            kajuzinhoPosition: { x: 20, y: 60 },
+            duzinhoPosition: { x: 70, y: 60 },
+            popcornPosition: { x: 12, y: 20 },
+            chocolatePosition: { x: 72, y: 65 },
             inventory: [],
             talkingToDuzinho: false,
             dialogueStep: 0,
@@ -1158,8 +1157,8 @@
             gameState.kajuzinhoPosition.y += deltaY;
             
             // Limitar movimento dentro do shopping
-            gameState.kajuzinhoPosition.x = Math.max(15, Math.min(85, gameState.kajuzinhoPosition.x));
-            gameState.kajuzinhoPosition.y = Math.max(20, Math.min(85, gameState.kajuzinhoPosition.y));
+            gameState.kajuzinhoPosition.x = Math.max(10, Math.min(90, gameState.kajuzinhoPosition.x));
+            gameState.kajuzinhoPosition.y = Math.max(15, Math.min(85, gameState.kajuzinhoPosition.y));
             
             updatePositions();
             checkProximityToDuzinho();
@@ -1500,10 +1499,10 @@
         // Reiniciar jogo
         function restartGame() {
             gameState = {
-                kajuzinhoPosition: { x: 30, y: 70 },
-                duzinhoPosition: { x: 70, y: 70 },
-                popcornPosition: { x: 15, y: 20 },
-                chocolatePosition: { x: 85, y: 65 },
+                kajuzinhoPosition: { x: 20, y: 60 },
+                duzinhoPosition: { x: 70, y: 60 },
+                popcornPosition: { x: 12, y: 20 },
+                chocolatePosition: { x: 72, y: 65 },
                 inventory: [],
                 talkingToDuzinho: false,
                 dialogueStep: 0,
